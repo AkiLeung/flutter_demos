@@ -26,14 +26,20 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.0
+
   # 程序闪屏
   flutter_native_splash: ^0.3.0
   custom_splash: ^0.0.2
 
-  cupertino_icons: ^1.0.0
+  #列表
   flutter_slidable: ^0.5.7
+  flutter_staggered_animations: "^0.1.2"
+
   # 图片轮播
   flutter_swiper: ^1.1.6
+  dot_pagination_swiper: ^0.1.1
+  fule_swiper: ^0.1.2
   # 底部导航
   curved_navigation_bar: ^0.3.7
   ff_navigation_bar: ^0.1.4
@@ -69,6 +75,7 @@ flutter:
     - assets/images/icon/apple.png
     - assets/images/icon/setting.png
     - assets/images/icon/camera.png
+    - assets/images/icon/swiper.png
 
     - assets/images/splash/splash.png
 
@@ -77,6 +84,10 @@ flutter:
     - assets/images/layout/pic2.png
     - assets/images/layout/pic3.png
     - assets/images/layout/pic4.png
+
+    - assets/images/swiper/pic001.jpg
+    - assets/images/swiper/pic002.jpg
+    - assets/images/swiper/pic003.jpg
 
     - assets/images/home/jingdong/homeBg1.jpg
     - assets/images/home/jingdong/homeBg2.jpg

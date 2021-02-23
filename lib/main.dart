@@ -8,11 +8,14 @@ import 'package:flutter_demos/layout/layout01.dart';
 import 'package:flutter_demos/layout/layout02.dart';
 import 'package:flutter_demos/listView/listView01.dart';
 import 'package:flutter_demos/listView/listView02.dart';
+import 'package:flutter_demos/listView/listView03.dart';
 import 'package:flutter_demos/bottom/bottom01.dart';
 import 'package:flutter_demos/bottom/bottom02.dart';
 import 'package:flutter_demos/bottom/bottom03.dart';
 import 'package:flutter_demos/bottom/bottom04.dart';
 import 'package:flutter_demos/bottom/bottom05.dart';
+import 'package:flutter_demos/swiper/swiper01.dart';
+import 'package:flutter_demos/swiper/swiper02.dart';
 import 'package:flutter_demos/home/jingdong/home.dart';
 import 'package:flutter_demos/mine/weixin/mine.dart';
 
@@ -54,11 +57,14 @@ class MyApp extends StatelessWidget {
     "layOut02": (context, settings) => LayOut02(),
     "listView01": (context, settings) => ListView01(),
     "listView02": (context, settings) => ListView02(),
+    "listView03": (context, settings) => ListView03(),
     "bottomNavigator01": (context, settings) => BottomNavigartor01(),
     "bottomNavigator02": (context, settings) => BottomNavigartor02(),
     "bottomNavigator03": (context, settings) => BottomNavigartor03(),
     "bottomNavigator04": (context, settings) => BottomNavigartor04(),
     "bottomNavigator05": (context, settings) => BottomNavigartor05(),
+    "swiper01": (context, settings) => Swiper01(),
+    "swiper02": (context, settings) => Swiper02(),
     "jingDongHome": (context, settings) => JingDongHomePage(),
     "weiXinMine": (context, settings) => WeiXinMinePage(),
   };
@@ -78,6 +84,8 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demos',
             initialRoute: "main",
             theme: ThemeData(
+              brightness: Brightness.light,
+              scaffoldBackgroundColor: const Color.fromRGBO(239, 238, 239, 1.0),
               primarySwatch: Colors.red,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
@@ -118,7 +126,7 @@ class _MyMainPageState extends State<MyMainPage> {
   List<ZIconData> layoutIconList = [];
   List<ZIconData> listViewIconList = [];
   List<ZIconData> bttmNavgIconList = [];
-  // List<ZIconData> leftMenuIconList = [];
+  List<ZIconData> swiperIconList = [];
   // List<ZIconData> rightMenuIconList = [];
 
   List<ZIconData> homePageIconList = [];
@@ -148,6 +156,10 @@ class _MyMainPageState extends State<MyMainPage> {
         icon: "assets/images/icon/list.png",
         name: "进一级",
         router: "listView02"));
+    listViewIconList.add(ZIconData(
+        icon: "assets/images/icon/list.png",
+        name: "group_list",
+        router: "listView03"));
     /*****************bttmNavgIconList*****************/
     bttmNavgIconList.add(ZIconData(
         icon: "assets/images/icon/bottom.png",
@@ -169,6 +181,16 @@ class _MyMainPageState extends State<MyMainPage> {
         icon: "assets/images/icon/bottom.png",
         name: "navigation",
         router: "bottomNavigator05"));
+
+    /*****************swiperIconList*****************/
+    swiperIconList.add(ZIconData(
+        icon: "assets/images/icon/swiper.png",
+        name: "pagination",
+        router: "swiper01"));
+    swiperIconList.add(ZIconData(
+        icon: "assets/images/icon/swiper.png",
+        name: "fule_swiper",
+        router: "swiper02"));
     /*****************home page *****************/
     homePageIconList.add(ZIconData(
         icon: "assets/images/icon/jingdong.png",
@@ -290,6 +312,36 @@ class _MyMainPageState extends State<MyMainPage> {
                           ZIcon(
                             iconList: bttmNavgIconList
                                 .getRange(0, bttmNavgIconList.length)
+                                ?.toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /* ******************************************************************************************* */
+                    Container(
+                      child: Text(
+                        "swiper",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      margin: const EdgeInsets.all(5.0),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      padding: EdgeInsets.all(3.0),
+                      height: 80,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38, width: 1.5),
+                          color: Colors.white10,
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: PageView(
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          ZIcon(
+                            iconList: swiperIconList
+                                .getRange(0, swiperIconList.length)
                                 ?.toList(),
                           ),
                         ],
