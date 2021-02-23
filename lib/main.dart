@@ -1,16 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:custom_splash/custom_splash.dart';
+import 'package:flutter_demos/splash/splash01.dart';
 import 'package:flutter_demos/utils/zicon_button.dart';
 import 'package:flutter_demos/utils/zicon_data.dart';
 import 'package:flutter_demos/layout/layout01.dart';
 import 'package:flutter_demos/layout/layout02.dart';
 import 'package:flutter_demos/listView/listView01.dart';
 import 'package:flutter_demos/listView/listView02.dart';
+import 'package:flutter_demos/bottom/bottom01.dart';
+import 'package:flutter_demos/bottom/bottom02.dart';
+import 'package:flutter_demos/bottom/bottom03.dart';
+import 'package:flutter_demos/bottom/bottom04.dart';
+import 'package:flutter_demos/bottom/bottom05.dart';
 import 'package:flutter_demos/home/jingdong/home.dart';
 import 'package:flutter_demos/mine/weixin/mine.dart';
 
 void main() {
-  runApp(MyApp());
+  Function duringSplash = () {
+    print('Something background process');
+    int a = 123 + 23;
+    print(a);
+
+    if (a > 100)
+      return 1;
+    else
+      return 2;
+  };
+
+  Map<int, Widget> op = {1: MyApp(), 2: MyApp()};
+
+  runApp(MaterialApp(
+    home: CustomSplash(
+      imagePath: 'assets/images/splash/splash.png',
+      backGroundColor: Colors.deepOrange,
+      animationEffect: 'zoom-in',
+      logoSize: 250,
+      home: MyApp(),
+      customFunction: duringSplash,
+      duration: 3500,
+      type: CustomSplashType.StaticDuration,
+      outputAndHome: op,
+    ),
+  ));
+
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +54,11 @@ class MyApp extends StatelessWidget {
     "layOut02": (context, settings) => LayOut02(),
     "listView01": (context, settings) => ListView01(),
     "listView02": (context, settings) => ListView02(),
+    "bottomNavigator01": (context, settings) => BottomNavigartor01(),
+    "bottomNavigator02": (context, settings) => BottomNavigartor02(),
+    "bottomNavigator03": (context, settings) => BottomNavigartor03(),
+    "bottomNavigator04": (context, settings) => BottomNavigartor04(),
+    "bottomNavigator05": (context, settings) => BottomNavigartor05(),
     "jingDongHome": (context, settings) => JingDongHomePage(),
     "weiXinMine": (context, settings) => WeiXinMinePage(),
   };
@@ -27,17 +66,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demos',
-      initialRoute: "main",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      //注册路由
-      onGenerateRoute: _onGenerateRoute,
-      home: MyMainPage(title: 'Flutter Demos'),
-      debugShowCheckedModeBanner: false,
+    return FutureBuilder(
+      future: Future.delayed(Duration(seconds: 3)),
+      builder: (context, AsyncSnapshot snapshot) {
+        // Show splash screen while waiting for app resources to load:
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(home: Splash01());
+        } else {
+          // Loading is done, return the app:
+          return MaterialApp(
+            title: 'Flutter Demos',
+            initialRoute: "main",
+            theme: ThemeData(
+              primarySwatch: Colors.red,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            //注册路由
+            onGenerateRoute: _onGenerateRoute,
+            home: MyMainPage(title: 'Flutter Demos'),
+            debugShowCheckedModeBanner: false,
+          );
+        }
+      },
     );
   }
 
@@ -67,7 +117,7 @@ class MyMainPage extends StatefulWidget {
 class _MyMainPageState extends State<MyMainPage> {
   List<ZIconData> layoutIconList = [];
   List<ZIconData> listViewIconList = [];
-  // List<ZIconData> bttmNavgIconList = [];
+  List<ZIconData> bttmNavgIconList = [];
   // List<ZIconData> leftMenuIconList = [];
   // List<ZIconData> rightMenuIconList = [];
 
@@ -98,6 +148,27 @@ class _MyMainPageState extends State<MyMainPage> {
         icon: "assets/images/icon/list.png",
         name: "进一级",
         router: "listView02"));
+    /*****************bttmNavgIconList*****************/
+    bttmNavgIconList.add(ZIconData(
+        icon: "assets/images/icon/bottom.png",
+        name: "curved",
+        router: "bottomNavigator01"));
+    bttmNavgIconList.add(ZIconData(
+        icon: "assets/images/icon/bottom.png",
+        name: "ff",
+        router: "bottomNavigator02"));
+    bttmNavgIconList.add(ZIconData(
+        icon: "assets/images/icon/bottom.png",
+        name: "fancy",
+        router: "bottomNavigator03"));
+    bttmNavgIconList.add(ZIconData(
+        icon: "assets/images/icon/bottom.png",
+        name: "Bubbled",
+        router: "bottomNavigator04"));
+    bttmNavgIconList.add(ZIconData(
+        icon: "assets/images/icon/bottom.png",
+        name: "navigation",
+        router: "bottomNavigator05"));
     /*****************home page *****************/
     homePageIconList.add(ZIconData(
         icon: "assets/images/icon/jingdong.png",
@@ -195,35 +266,35 @@ class _MyMainPageState extends State<MyMainPage> {
                       ),
                     ),
                     /* ******************************************************************************************* */
-                    // Container(
-                    //   child: Text(
-                    //     "bottomNavigator",
-                    //     style: TextStyle(
-                    //       fontSize: 15,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    //   margin: const EdgeInsets.all(5.0),
-                    // ),
-                    // Container(
-                    //   margin: EdgeInsets.all(5.0),
-                    //   padding: EdgeInsets.all(3.0),
-                    //   height: 80,
-                    //   decoration: BoxDecoration(
-                    //       border: Border.all(color: Colors.black38, width: 1.5),
-                    //       color: Colors.white10,
-                    //       borderRadius: BorderRadius.circular(10.0)),
-                    //   child: PageView(
-                    //     scrollDirection: Axis.horizontal,
-                    //     children: <Widget>[
-                    //       ZIcon(
-                    //         iconList: bttmNavgIconList
-                    //             .getRange(0, bttmNavgIconList.length)
-                    //             ?.toList(),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    Container(
+                      child: Text(
+                        "bottomNavigator",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      margin: const EdgeInsets.all(5.0),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      padding: EdgeInsets.all(3.0),
+                      height: 80,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38, width: 1.5),
+                          color: Colors.white10,
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: PageView(
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          ZIcon(
+                            iconList: bttmNavgIconList
+                                .getRange(0, bttmNavgIconList.length)
+                                ?.toList(),
+                          ),
+                        ],
+                      ),
+                    ),
                     /* ******************************************************************************************* */
                     Container(
                       child: Text(
